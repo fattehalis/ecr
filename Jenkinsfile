@@ -1,25 +1,36 @@
 pipeline {
-  agent any 
-  stages {
-    stage ('clone repository') {
-      script {
-        checkout scm
-      }
+    agent any
+    options {
+        skipStagesAfterUnstable()
     }
-    stage ('build') {
-      script {
-        sh 'docker build -t jenkins .'
-      }
-    }
-    stage ('tag') {
-      script {
-        sh 'docker tag jenkins:latest public.ecr.aws/g8n9i4i6/jenkins:latest'
-      }
-    }
-    stage ('build') {
-      script {
-        sh 'docker push public.ecr.aws/g8n9i4i6/jenkins:latest'
-      }
-    }
-  }
-}
+    stages {
+         stage('Clone repository') { 
+            steps { 
+                script{
+                checkout scm
+                }
+            }
+        }
+        stage('Build') { 
+            steps { 
+                script{
+                 sh 'docker build -t jenkins .'
+                }
+            }
+        }
+        stage('Tag'){
+            steps {
+                 sh 'docker tag jenkins:latest public.ecr.aws/g8n9i4i6/jenkins:latest'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script{
+                        sh 'docker push public.ecr.aws/g8n9i4i6/jenkins:latest'
+                        }
+                       
+                    }
+                }
+            }
+        }
+
