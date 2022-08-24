@@ -14,19 +14,19 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 sh 'docker build -t jenkins .'
+                 sh 'docker build -t alibaba .'
                 }
             }
         }
         stage('Tag'){
             steps {
-                 sh 'docker tag jenkins:latest public.ecr.aws/g8n9i4i6/jenkins:latest'
+                 sh 'docker tag alibaba:latest 078591229396.dkr.ecr.us-east-1.amazonaws.com/alibaba:latest'
             }
         }
         stage('Deploy') {
             steps {
                 script{
-                        sh 'docker push public.ecr.aws/g8n9i4i6/jenkins:latest'
+                        sh 'docker push 078591229396.dkr.ecr.us-east-1.amazonaws.com/alibaba:latest'
                         }
                        
                     }
