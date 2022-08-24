@@ -1,6 +1,6 @@
 pipeline {
   agent any 
-  statges {
+  stages {
     stage ('clone repository') {
       script {
         checkout scm
