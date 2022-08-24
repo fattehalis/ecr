@@ -1,6 +1,11 @@
 pipeline {
   agent any 
   statges {
+    stage ('clone repository') {
+      script {
+        checkout scm
+      }
+    }
     stage ('build') {
       script {
         sh 'docker build -t jenkins .'
